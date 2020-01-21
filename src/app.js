@@ -4,7 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const knex = require('knex')({
   client: 'pg',
-  connection: process.env.PG_CONNECTION_STRING,
+  connection: process.env.DATABASE_URL,
 });
 const db = require('./db');
 const lodash = require('lodash');
