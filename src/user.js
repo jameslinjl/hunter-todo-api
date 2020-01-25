@@ -1,17 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const knex = require('knex')({
-  client: 'pg',
-  connection: process.env.DATABASE_URL,
-});
 const db = require('./db');
+const knex = db.knex;
 const lodash = require('lodash');
 
 router.post('/user', async (req, res) => {
   const { body } = req;
 
   if (!body.hasOwnProperty('username')) {
-    return res.status(400).json({ error: 'you must supply a username when creating a user' });
+    return res.status(400).json({ error: 'you must supply a field "username" when creating a user' });
   }
 
   const { username } = body;

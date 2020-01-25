@@ -3,6 +3,7 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const user = require('./user');
+const auth = require('./auth');
 
 const PORT = process.env.PORT || 3000;
 
@@ -19,15 +20,7 @@ app.use((error, req, res, next) => {
 });
 
 app.use(user.router);
-
-app.post('/auth', (req, res) => {
-  // check for username in req -> error if username not provided
-  // check db for username -> error if username doesnt exist in db
-  // generate token and return
-
-  const token = 'asillytoken';
-  res.header('set-cookie', `token=${token}`).json({ token });
-});
+app.use(auth.router);
 
 app.get('/', (req, res) => {
   res.send('Hello World');
