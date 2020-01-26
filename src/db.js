@@ -50,5 +50,6 @@ module.exports = {
   createTables,
   dropTables,
   USER_TABLE_NAME,
+  TODO_ITEM_TABLE_NAME,
   knex,
 };
