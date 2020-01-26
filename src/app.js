@@ -21,7 +21,7 @@ app.use((error, req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  return res.send('Hello World');
+  return res.redirect('https://docs.google.com/document/d/1F-d-O1TTI69Sm9lk-zD-xepbUl_AbpKnB2h4dAMaQo8');
 });
 
 app.use(user.router);
