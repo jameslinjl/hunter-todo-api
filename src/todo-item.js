@@ -6,6 +6,7 @@ const knex = db.knex;
 router.get('/todo-item', (req, res) => {
   knex(db.TODO_ITEM_TABLE_NAME)
     .where({ user_id: res.locals.userId })
+    .orderBy('id')
     .then((rows) => {
       if (rows.length > 0) {
         return res.json(rows);
