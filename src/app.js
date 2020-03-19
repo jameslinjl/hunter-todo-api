@@ -7,6 +7,18 @@ const user = require('./user');
 const auth = require('./auth');
 const todoItem = require('./todo-item');
 
+// TESTING
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+  host: 'us-cdbr-iron-east-04.cleardb.net',
+  user: 'b6034fb423fe74',
+  password: 'c30bf13a',
+  database: 'heroku_71ba344448d1b12',
+});
+
+connection.connect();
+// TESTING
+
 const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
@@ -18,6 +30,15 @@ app.use((error, req, res, next) => {
     return res.status(400).json({ error: 'body must be valid JSON' });
   }
   next();
+});
+
+app.get('/user-test', (req, res) => {
+  connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+    if (err) throw err;
+
+    console.log('The solution is: ', rows[0].solution);
+    res.send('ok!');
+  });
 });
 
 app.get('/', (req, res) => {
