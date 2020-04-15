@@ -39,6 +39,7 @@ router.get('/user', (req, res) => {
 
   knex(db.USER_TABLE_NAME)
     .where(selectWhereClause)
+    .orderBy('id')
     .then((rows) => {
       res.status(rows.length > 0 ? 200 : 404).json(rows);
     })
