@@ -3,6 +3,7 @@ const app = express();
 
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 const user = require('./user');
 const auth = require('./auth');
 const todoItem = require('./todo-item');
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(fileUpload());
 
 // handle JSON syntax errors
 app.use((error, req, res, next) => {

@@ -11,6 +11,7 @@ const createTables = () => {
     .createTable(USER_TABLE_NAME, (table) => {
       table.increments('id');
       table.string('username');
+      table.string('profile_picture_url');
     })
     .createTable(TODO_ITEM_TABLE_NAME, (table) => {
       table.increments('id');
