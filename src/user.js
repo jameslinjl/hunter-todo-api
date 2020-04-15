@@ -51,7 +51,7 @@ router.get('/user', (req, res) => {
 const cfDomain = process.env.AWS_CF_DOMAIN;
 const s3 = new S3({
   accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
-  secretAccessKey: process.env.AWS_S3_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
 });
 const Bucket = 'todo-user-profile-pic-image';
 
@@ -64,7 +64,7 @@ router.put('/user/:id/upload-profile-picture', async (req, res) => {
 
   const fileExtensionMatch = req.files.image.name.match(/\.([a-zA-Z])+$/);
   const fileExtension = fileExtensionMatch ? fileExtensionMatch[0] : '';
-  const profilePicturePath = `/${req.params.id}${fileExtension}`;
+  const profilePicturePath = `${req.params.id}${fileExtension}`;
   s3.putObject({ Bucket, Body: req.files.image.data, Key: profilePicturePath }, (err, data) => {
     if (err) {
       console.error(err);
@@ -72,7 +72,7 @@ router.put('/user/:id/upload-profile-picture', async (req, res) => {
     }
     knex(db.USER_TABLE_NAME)
       .where(whereClause)
-      .update({ profile_picture_url: `https://${cfDomain}${profilePicturePath}` })
+      .update({ profile_picture_url: `https://${cfDomain}/${profilePicturePath}` })
       .then(() => {
         return knex(db.USER_TABLE_NAME).where(whereClause);
       })
