@@ -49,6 +49,23 @@ router.get('/user', (req, res) => {
     });
 });
 
+router.get('/user/:id', (req, res) => {
+  knex(db.USER_TABLE_NAME)
+    .where({ id: req.params.id })
+    .then((rows) => {
+      if (rows.length === 1) {
+        const row = rows[0];
+        return res.json(row);
+      } else {
+        return res.status(404).json({ error: `no user found with id "${req.params.id}"` });
+      }
+    })
+    .catch((e) => {
+      console.error(e);
+      return res.status(500).json({ error: 'something weird happened with the API. contact james' });
+    });
+});
+
 const cfDomain = process.env.AWS_CF_DOMAIN;
 const s3 = new S3({
   accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
