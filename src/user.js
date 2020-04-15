@@ -82,7 +82,7 @@ router.put('/user/:id/upload-profile-picture', async (req, res) => {
 
   const fileExtensionMatch = req.files.image.name.match(/\.([a-zA-Z])+$/);
   const fileExtension = fileExtensionMatch ? fileExtensionMatch[0] : '';
-  const profilePicturePath = `${req.params.id}${fileExtension}`;
+  const profilePicturePath = `${req.params.id}/${new Date().getTime()}${fileExtension}`;
   s3.putObject({ Bucket, Body: req.files.image.data, Key: profilePicturePath }, (err, data) => {
     if (err) {
       console.error(err);
