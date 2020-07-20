@@ -11,7 +11,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.3",
     "knex": "^0.20.8",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pg": "^7.17.1"
   }
 }
